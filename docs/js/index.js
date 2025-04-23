@@ -55,12 +55,6 @@ const getData = () => {
     const url = 'http://localhost:8080/changes';
     return fetch(url)
         .then(response => response.json())
-        .then(data => data.map(entry => ({
-            timestamp: entry.Timestamp,
-            actor: entry.Actor,
-            service: entry.Service,
-            details: entry.Details
-        })))
         .catch(error => console.error('Error fetching data:', error));
 }
 

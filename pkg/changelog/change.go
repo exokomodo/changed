@@ -3,11 +3,11 @@ package changelog
 import "time"
 
 type Change struct {
-	ID        uint
-	Timestamp time.Time
-	Actor     string
-	Service   string
-	Details   string
+	ID        uint      `json:"id"`
+	Timestamp time.Time `json:"timestamp,omitempty"`
+	Actor     string    `json:"actor"`
+	Service   string    `json:"service"`
+	Details   string    `json:"details"`
 }
 
 func NewChange(actor, service, details string) Change {
