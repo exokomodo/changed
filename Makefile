@@ -4,15 +4,16 @@ SHELL := /bin/bash
 .ONESHELL:
 
 db_data: ## Generate the db directory
-	mkdir -p $(shell pwd)/db_data
+	@mkdir -p $(shell pwd)/db_data
 
 .PHONY: db
 db:
-	docker compose up -d
+	@docker compose up -d
+	@sleep 2
 
 .PHONY: run
 run: db_data db ## Run the server application
-	go run $(shell pwd)/cmd/main.go
+	@go run $(shell pwd)/cmd/main.go
 
 UNAME_S = $(shell uname -s)
 
@@ -20,9 +21,9 @@ UNAME_S = $(shell uname -s)
 serve: ## Serve the client application and open default browser
 	python3 -m http.server -d wwwroot/ &
 ifeq ($(UNAME_S), Linux)
-	xdg-open http://0.0.0.0:8000
+	@xdg-open http://0.0.0.0:8000 &
 else ifeq ($(UNAME_S), Darwin)
-	open http://0.0.0.0:8000
+	@open http://0.0.0.0:8000 &
 endif
 
 .PHONY: help
