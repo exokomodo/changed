@@ -49,7 +49,6 @@ func NewChangeRepository(db *sql.DB) ChangeRepository {
 	return &changeRepository{db: db}
 }
 
-// List retrieves changes within last 1 day
 func (r *changeRepository) List(limit, offset int) ([]Change, error) {
 	// TODO: Add time range filtering
 	query := `
@@ -90,6 +89,7 @@ func (r *changeRepository) Get(id string) (Change, error) {
 
 // Create adds a new change to the database
 func (r *changeRepository) Create(change Change) (Change, error) {
+	// TODO: Fix the timestamp as it is not properly saving
 	query := `
         INSERT INTO changes (timestamp, actor, service, details)
         VALUES ($1, $2, $3, $4)`

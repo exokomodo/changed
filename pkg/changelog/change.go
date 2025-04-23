@@ -11,6 +11,7 @@ type Change struct {
 }
 
 func NewChange(actor, service, details string) Change {
+	// TODO: Fix the timestamp as it is not properly saving
 	return Change{
 		Timestamp: time.Now().UTC(),
 		Actor:     actor,
