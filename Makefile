@@ -3,11 +3,27 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 .ONESHELL:
 
-.PHONY: run
-run: ## Run the application
+db_data: ## Generate the db directory
 	mkdir -p $(shell pwd)/db_data
+
+.PHONY: db
+db:
 	docker compose up -d
+
+.PHONY: run
+run: db_data db ## Run the server application
 	go run $(shell pwd)/cmd/main.go
+
+UNAME_S = $(shell uname -s)
+
+.PHONY: serve/client
+serve: ## Serve the client application and open default browser
+	python3 -m http.server -d wwwroot/ &
+ifeq ($(UNAME_S), Linux)
+	xdg-open http://0.0.0.0:8000
+else ifeq ($(UNAME_S), Darwin)
+	open http://0.0.0.0:8000
+endif
 
 .PHONY: help
 help: ## Displays help info
