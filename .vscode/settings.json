@@ -1,0 +1,10 @@
+{
+    // Exclude db_data from search results
+    "search.exclude": {
+        "**/db_data": true
+    },
+    // Prevent VS Code from watching changes under db_data
+    "files.watcherExclude": {
+        "**/db_data/**": true
+    }
+}
